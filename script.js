@@ -1,4 +1,5 @@
 //global variables here: word, word array(s), guesses, guessedLetters
+// TODO: deduct from guesses, check for a win or loss.
 
 let word;
 let guesses = 0;
@@ -45,10 +46,6 @@ function guessLetter() {
         document.getElementById("guessedLetters").innerHTML = String(guessedLetters.toSorted()).replace(/\b,\b/g, ", ");
         printWord();
     }
-/*
-Manage the game: Add letters to guessedLetters, call printWord, deduct from guesses, check for a win or loss.
-*/
-
 }
 
 
