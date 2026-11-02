@@ -1,8 +1,8 @@
 //global variables here: word, word array(s), guesses, guessedLetters
 // TODO: deduct from guesses, check for a win or loss.
 
-let word;
-let guesses = 0;
+let word = "";
+let guesses = 6;
 let guessedLetters = [];
 
 //event listeners for startGame and guessLetter
@@ -13,6 +13,8 @@ document.getElementById("guessLetter").addEventListener("click", guessLetter);
 function startGame() {
     guessedLetters = [];
     document.getElementById("guessedLetters").innerHTML = "";
+    guesses = 6;
+    document.getElementById("numGuesses").innerHTML = guesses;
     word = WORDS[Math.floor(Math.random() * WORDS.length)];
     console.log(word);
     printWord();
@@ -30,6 +32,9 @@ function printWord() {
         displayedWord += " ";
     }
     document.getElementById("word").innerHTML = displayedWord;
+    if(displayedWord.replace(/\s/g, "") == word) {
+        alert("You win!");
+    }
 /*
 Compare each letter in answer word to the letters in guessedLetters using guessedLetters.indexOf(letter).  Use this to build the “_” word with the correctly guessed letters filled in.
 there is a help video for this in classroom 
@@ -45,6 +50,10 @@ function guessLetter() {
         guessedLetters.push(l);
         document.getElementById("guessedLetters").innerHTML = String(guessedLetters.toSorted()).replace(/\b,\b/g, ", ");
         printWord();
+        if(!word.includes(l)) {
+            guesses -= 1;
+        }
+        document.getElementById("numGuesses").innerHTML = guesses;
     }
 }
 
