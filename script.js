@@ -32,7 +32,7 @@ function printWord() {
         displayedWord += " ";
     }
     document.getElementById("word").innerHTML = displayedWord;
-    if(displayedWord.replace(/\s/g, "") == word) {
+    if(displayedWord.replace(/\s/g, "") == word && !(word == "")) {
         alert("You win!");
     }
 /*
@@ -45,13 +45,16 @@ there is a help video for this in classroom
 //every time the user enters a guess
 function guessLetter() {
     let l = document.getElementById("guessedLetter").value
-    if(!guessedLetters.includes(l)) {
+    if(!guessedLetters.includes(l) && guesses > 0) {
         console.log(l)
         guessedLetters.push(l);
         document.getElementById("guessedLetters").innerHTML = String(guessedLetters.toSorted()).replace(/\b,\b/g, ", ");
         printWord();
         if(!word.includes(l)) {
             guesses -= 1;
+            if(guesses == 0) {
+                alert("You lose! The word was " + word);
+            }
         }
         document.getElementById("numGuesses").innerHTML = guesses;
     }
