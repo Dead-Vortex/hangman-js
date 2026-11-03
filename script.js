@@ -16,7 +16,7 @@ function startGame() {
     guesses = 6;
     document.getElementById("numGuesses").innerHTML = guesses;
     word = WORDS[Math.floor(Math.random() * WORDS.length)];
-    console.log(word);
+    // console.log(word);
     printWord();
 }
 
@@ -46,7 +46,7 @@ there is a help video for this in classroom
 function guessLetter() {
     let l = document.getElementById("guessedLetter").value
     if(!guessedLetters.includes(l) && guesses > 0) {
-        console.log(l)
+        // console.log(l)
         guessedLetters.push(l);
         document.getElementById("guessedLetters").innerHTML = String(guessedLetters.toSorted()).replace(/\b,\b/g, ", ");
         printWord();
