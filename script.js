@@ -5,9 +5,12 @@ let word = "";
 let guesses = 6;
 let guessedLetters = [];
 
+const LETTERS = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
+
 //event listeners for startGame and guessLetter
 document.getElementById("start").addEventListener("click", startGame);
 document.getElementById("guessLetter").addEventListener("click", guessLetter);
+document.getElementById("guessLetter").disabled = true;
 buildSelector()
 //once at start of the game
 function startGame() {
@@ -18,6 +21,8 @@ function startGame() {
     word = WORDS[Math.floor(Math.random() * WORDS.length)];
     // console.log(word);
     printWord();
+    document.getElementById("guessLetter").disabled = false;
+    buildSelector("a");
 }
 
 //at start and every time the user enters a guess
@@ -34,6 +39,7 @@ function printWord() {
     document.getElementById("word").innerHTML = displayedWord;
     if(displayedWord.replace(/\s/g, "") == word && !(word == "")) {
         alert("You win!");
+        document.getElementById("guessLetter").disabled = true;
     }
 /*
 Compare each letter in answer word to the letters in guessedLetters using guessedLetters.indexOf(letter).  Use this to build the “_” word with the correctly guessed letters filled in.
@@ -54,14 +60,28 @@ function guessLetter() {
             guesses -= 1;
             if(guesses == 0) {
                 alert("You lose! The word was " + word);
+                document.getElementById("guessLetter").disabled = true
             }
         }
         document.getElementById("numGuesses").innerHTML = guesses;
     }
+    buildSelector(l)
 }
 
-function buildSelector() {
-    document.getElementById("guessedLetter").innerHTML = '<option value="a">a</option>  <option value="b">b</option>  <option value="c">c</option>  <option value="d">d</option>  <option value="e">e</option>  <option value="f">f</option>  <option value="g">g</option>  <option value="h">h</option>  <option value="i">i</option>  <option value="j">j</option>  <option value="k">k</option>  <option value="l">l</option>  <option value="m">m</option>  <option value="n">n</option>  <option value="o">o</option>  <option value="p">p</option>  <option value="q">q</option>  <option value="r">r</option>  <option value="s">s</option>  <option value="t">t</option>  <option value="u">u</option>  <option value="v">v</option>  <option value="w">w</option>  <option value="x">x</option>  <option value="y">y</option>  <option value="z">z</option>'
+function buildSelector(defaultOption) {
+    let dropdown = "";
+    for(let l of LETTERS) {
+        dropdown += "<option value=" + '"' + l + '"'
+        if(l == defaultOption) {
+            dropdown += " selected";
+        }
+        if(guessedLetters.includes(l)) {
+            dropdown += " disabled";
+        }
+        dropdown += ">" + l + "</option>  ";
+    }
+    document.getElementById("guessedLetter").innerHTML = dropdown;
+    //document.getElementById("guessedLetter").innerHTML = '<option value="a">a</option>  <option value="b">b</option>  <option value="c">c</option>  <option value="d">d</option>  <option value="e">e</option>  <option value="f">f</option>  <option value="g">g</option>  <option value="h">h</option>  <option value="i">i</option>  <option value="j">j</option>  <option value="k">k</option>  <option value="l">l</option>  <option value="m">m</option>  <option value="n">n</option>  <option value="o">o</option>  <option value="p">p</option>  <option value="q">q</option>  <option value="r">r</option>  <option value="s">s</option>  <option value="t">t</option>  <option value="u">u</option>  <option value="v">v</option>  <option value="w">w</option>  <option value="x">x</option>  <option value="y">y</option>  <option value="z">z</option>'
 }
 
 // async function loadTextFile() {
